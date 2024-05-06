@@ -17,7 +17,6 @@ services:
         #plugins
         MODRINTH_PROJECTS: "fRQREgAc"
       volumes:
-        external: true
          - ./minecraft-server/data:/data
          - ./minecraft-server/plugins:/data/plugins
   backup:
