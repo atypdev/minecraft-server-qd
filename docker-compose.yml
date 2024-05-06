@@ -1,0 +1,37 @@
+services:
+  server:
+      image: itzg/minecraft-server
+      ports:
+        - 25565:25565
+        - 8123:8123
+      environment:
+        TYPE: "MODRINTH"
+        MOTD: "${MOTD}"
+        MEMORY: "4G"
+        EULA: "TRUE"
+        MAX_PLAYERS: 10
+        ENABLE_RCON: "true"
+        RCON_PASSWORD: ${RCON_PASSWORD}
+        RCON_PORT: 28016
+        restart: unless-stopped
+        #plugins
+        MODRINTH_PROJECTS: "fRQREgAc"
+      volumes:
+         - ./queercraft/data:/data
+         - ./queercraft/plugins:/data/plugins
+  backup:
+    image: itzg/mc-backup
+    # This needs to be set because backups use hostnames
+    hostname: minecraftbackup
+    environment:
+      BACKUP_METHOD: tar
+      BACKUP_INTERVAL: "2h"
+      PRUNE_BACKUPS_DAYS: 7
+      INITIAL_DELAY: 1m
+      BACKUP_NAME: backup
+      RCON_HOST: server # change this to your Minecraft docker service name
+      RCON_PASSWORD: ${RCON_PASSWORD}
+      RCON_PORT: 28016
+    volumes:
+      - server:/data:ro
+      - ./queercraft:/backups
