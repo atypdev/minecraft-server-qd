@@ -17,8 +17,9 @@ services:
         #plugins
         MODRINTH_PROJECTS: "fRQREgAc"
       volumes:
-         - ./queercraft/data:/data
-         - ./queercraft/plugins:/data/plugins
+        external: true
+         - ./minecraft-server/data:/data
+         - ./minecraft-server/plugins:/data/plugins
   backup:
     image: itzg/mc-backup
     # This needs to be set because backups use hostnames
@@ -33,5 +34,5 @@ services:
       RCON_PASSWORD: ${RCON_PASSWORD}
       RCON_PORT: 28016
     volumes:
-      - server:/data:ro
-      - ./queercraft:/backups
+      - ./minecraft-server/data:/data:ro
+      - ./minecraft-server/backups:/backups
