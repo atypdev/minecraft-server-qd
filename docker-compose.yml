@@ -15,7 +15,7 @@ services:
         RCON_PORT: 28016
         restart: unless-stopped
         #plugins
-        MODRINTH_PROJECTS: "fRQREgAc"
+        MODRINTH_MODPACK: "https://github.com/atypdev/minecraft-server-qd/blob/main/mcserver-pack-1.0.0.mrpack"
       volumes:
          - ./minecraft-server/data:/data
          - ./minecraft-server/plugins:/data/plugins
